@@ -1,0 +1,31 @@
+body {
+    text-align: center;
+    background-color: rgb(239,222,193);
+    color: rgb(61,59,56);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+input,textarea {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 42px;
+    color: rgb(145,119,68);
+}
+
+input {
+    font-size: 24px;
+}
+
+#timer {
+    color: rgb(162,78,4);
+}
+
+input[type="button"] {
+
+}
