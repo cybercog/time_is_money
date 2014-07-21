@@ -18,7 +18,7 @@ var Example1 = new (function() {
     var incrementTime = 1000;
 
     // Current timer position in milliseconds
-    var currentTime = 0;
+    var currentTime = 1000;
 
     // Start the timer
     $(function() {
