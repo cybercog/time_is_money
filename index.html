@@ -6,15 +6,20 @@
     <link href='http://fonts.googleapis.com/css?family=Rajdhani:400,700' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="jquery.timer.js"></script>
+    <script type="text/javascript" src="timer.js"></script>
   </head>
   <body>
     <h1>Time is Money</h1>
-    <h2>
-        <i class="fa fa-clock-o fa-fw fa-lg"></i>
-        <span id="timer">00:00</span>
-    </h2>
-    <input type="button" value="Start" />
-    <input type="button" value="Pause" />
-    <input type="button" value="Stop" />
+    <div id="timer">
+        <h2>
+            <i class="fa fa-clock-o fa-fw fa-lg"></i>
+            <span id="clock">00:00</span>
+        </h2>
+    </div>
+    <br class="clearfix" />
+    <input type="button" value="START/PAUSE" onclick='Example1.Timer.toggle();' />
+    <input type="button" value="RESET"  onclick='Example1.resetStopwatch();' />
   </body>
 </html>
