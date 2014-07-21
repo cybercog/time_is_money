@@ -38,7 +38,6 @@ var Example1 = new (function() {
         currentTime = 0;
         Example1.Timer.stop().once();
     };
-
 });
 
 

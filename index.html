@@ -19,7 +19,27 @@
         </h2>
     </div>
     <br class="clearfix" />
-    <input type="button" value="START/PAUSE" onclick='Example1.Timer.toggle();' />
-    <input type="button" value="RESET"  onclick='Example1.resetStopwatch();' />
+    <button id="play" onclick='Example1.Timer.toggle();'>
+        <i class="fa fa-play fa-fw fa-lg"></i>
+        Play / Pause
+    </button>
+    <button onclick='Example1.Timer.resetStopwatch();'>
+        <i class="fa fa-trash-o fa-fw fa-lg"></i>
+        Clear
+    </button>
+
+    <script>
+        var playingState = false;
+        $('#play').on('click',function(){
+            if (! playingState) {
+                $('#play').html('<i class="fa fa-pause fa-fw fa-lg"></i>Pause');
+                playingState = true;
+            }
+            else {
+                $('#play').html('<i class="fa fa-play fa-fw fa-lg"></i>Play');
+                playingState = false;
+            }
+        });
+    </script>
   </body>
 </html>

@@ -10,13 +10,17 @@ input,textarea {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 80px;
+    line-height: 1.2;
+    margin: 40px 0;
 }
 
 h2 {
-    font-size: 42px;
+    font-size: 120px;
     color: rgb(145,119,68);
     position: relative;
+    line-height: 1.2;
+    margin: 40px 0;
 }
 
 h2 i {
@@ -28,9 +32,23 @@ input {
 }
 
 #clock {
+    font-size: 140px;
     color: rgb(162,78,4);
 }
 
 input[type="button"] {
 
+}
+
+button {
+    background: none;
+    border: 0;
+    font-size: 30px;
+    color: rgb(61,59,56);
+    outline: none;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rgb(162,78,4);
 }
