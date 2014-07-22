@@ -49,3 +49,25 @@ button {
 button:hover {
     color: rgb(162,78,4);
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    height: 240px;
+    margin-left: -160px;
+    margin-top: -120px;
+    background: white;
+}
+
+.popup .wrapper {
+    padding: 24px;
+}
+
+button#go_rest,
+button#go_work {
+    border: 2px solid black;
+    border-radius: 4px;
+}

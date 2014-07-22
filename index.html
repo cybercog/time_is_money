@@ -20,7 +20,7 @@
         </h2>
     </div>
     <br class="clearfix" />
-    <button id="play" onclick='Example1.Timer.toggle();'>
+    <button id="play">
         <i class="fa fa-play fa-fw fa-lg"></i>
         Play / Pause
     </button>
@@ -37,12 +37,34 @@
 
     <h3>
         Till rest:
+        <span id="till_rest">00:00</span>
+    </h3>
+    <h3>
+        Rest:
         <span id="rest">00:00</span>
     </h3>
+
+    <div id="go_rest_popup" class="popup">
+        <div class="wrapper">
+            <h3>Everybody need a rest.</h3>
+            <p>To keep your eyes health - please stay away from monitors & TVs</p>
+            <button id="go_rest">Go rest!</button>
+        </div>
+    </div>
+
+    <div id="go_work_popup" class="popup">
+        <div class="wrapper">
+            <h3>Everybody need to work.</h3>
+            <p>To have a lot of money & practice new skills - keep working hard!</p>
+            <button id="go_work">Go rest!</button>
+        </div>
+    </div>
 
     <script>
         var playingState = false;
         $('#play').on('click',function(){
+            Work.Timer.toggle();
+            TillRestCountdown.Timer.toggle();
             if (! playingState) {
                 $('#play').html('<i class="fa fa-pause fa-fw fa-lg"></i>Pause');
                 playingState = true;
@@ -56,6 +78,20 @@
         $('#reset').on('click',function(){
             wipeLocalStorage();
             location.reload();
+        });
+
+        $('#end_rest').on('click',function(){
+            TillRestCountdown.resetCountdown();
+        });
+
+        $('#go_rest').on('click',function(){
+           $('#go_rest_popup').fadeOut();
+           RestCountdown.Timer.play();
+        });
+
+        $('#go_work').on('click',function(){
+           $('#go_work_popup').fadeOut();
+           $('#play').click();
         });
     </script>
   </body>

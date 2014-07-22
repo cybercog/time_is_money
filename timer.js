@@ -9,9 +9,10 @@
  * The timer function converts the current time to a string
  * and outputs to the stopwatch element, $stopwatch.
  */
-var Example1 = new (function() {
+var Work = new (function() {
     // Stopwatch element on the page
     var $stopwatch;
+    var autostart = false;
 
     // Timer speed in milliseconds
     var incrementTime = 1000;
@@ -33,7 +34,7 @@ var Example1 = new (function() {
     // Start the timer
     $(function() {
         $stopwatch = $('#clock');
-        Example1.Timer = $.timer(updateTimer, incrementTime, false);
+        Work.Timer = $.timer(updateTimer, incrementTime, autostart);
 
         var timeString = formatTime(currentTime);
         $stopwatch.html(timeString);
@@ -60,7 +61,7 @@ var Example1 = new (function() {
     // Reset timer
     this.resetStopwatch = function() {
         currentTime = 1000;
-        Example1.Timer.stop().once();
+        Work.Timer.stop().once();
         wipeLocalStorage();
 
         var timeString = formatTime(currentTime);
@@ -76,61 +77,89 @@ var Example1 = new (function() {
  * down to zero, an alert is triggered.
  */
 
-var Example2 = new (function() {
+var TillRestCountdown = new (function() {
 
     var $countdown;
-    var $form;
     var incrementTime = 70;
-    var currentTime = 600000; // 5 minutes (in milliseconds)
+    var currentTime = 40000; // 5 minutes (in milliseconds)
+    var autostart = false;
 
     $(function() {
-
         // Setup the timer
-        $countdown = $('#rest');
-        Example2.Timer = $.timer(updateTimer, incrementTime, true);
+        $countdown = $('#till_rest');
+        TillRestCountdown.Timer = $.timer(updateTimer, incrementTime, autostart);
 
-        // Setup form
-        $form = $('#returnFromRest');
-        $form.bind('submit', function() {
-            Example2.resetCountdown();
-            return false;
-        });
-
+        var timeString = formatTime(currentTime);
+        $countdown.html(timeString);
     });
 
     function updateTimer() {
-
         // Output timer position
         var timeString = formatTime(currentTime);
         $countdown.html(timeString);
 
-        // If rest timer completed -
+        // If till rest timer completed - show popup with rest
         if (currentTime == 0) {
-            Example2.Timer.stop();
-            console.log('GO REST!');
-            Example2.resetCountdown();
+            TillRestCountdown.Timer.stop();
+            $('#go_rest_popup').fadeIn();
+            Work.Timer.stop().once();
+            TillRestCountdown.resetCountdown();
             return;
         }
 
         // Increment timer position
         currentTime -= incrementTime;
         if (currentTime < 0) currentTime = 0;
-
     }
 
     this.resetCountdown = function() {
-
-        // Get time from form
-        var newTime = 600000;
-        if (newTime > 0) {currentTime = newTime;}
-
+        currentTime = 2400;
         // Stop and reset timer
-        Example2.Timer.stop().once();
-
+        TillRestCountdown.Timer.stop().once();
     };
-
 });
 
+
+var RestCountdown = new (function() {
+
+    var $countdown;
+    var incrementTime = 70;
+    var currentTime = 10000; // 5 minutes (in milliseconds)
+    var autostart = false;
+
+    $(function() {
+        // Setup the timer
+        $countdown = $('#rest');
+        RestCountdown.Timer = $.timer(updateTimer, incrementTime, autostart);
+
+        var timeString = formatTime(currentTime);
+        $countdown.html(timeString);
+    });
+
+    function updateTimer() {
+        // Output timer position
+        var timeString = formatTime(currentTime);
+        $countdown.html(timeString);
+
+        // If rest timer completed -
+        if (currentTime == 0) {
+            RestCountdown.Timer.stop();
+            $('#go_work_popup').fadeIn();
+            RestCountdown.resetCountdown();
+            return;
+        }
+
+        // Increment timer position
+        currentTime -= incrementTime;
+        if (currentTime < 0) currentTime = 0;
+    }
+
+    this.resetCountdown = function() {
+        currentTime = 10000;
+        // Stop and reset timer
+        RestCountdown.Timer.stop().once();
+    };
+});
 
 
 /**
