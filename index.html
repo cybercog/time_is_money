@@ -40,6 +40,11 @@
         </div>
     </div>
 
+    <div id="rest_popup" class="popup">
+        <h2>Calm down</h2>
+        <p>...and rest...</p>
+    </div>
+
     <div id="go_work_popup" class="popup">
         <div class="wrapper">
             <h3>Everybody need to work.</h3>
@@ -72,12 +77,14 @@
         canWork = false;
         visualizePlayingState(isWorking);
         $('#go_rest_popup').fadeOut();
+        $('#rest_popup').fadeIn();
         RestCountdown.Timer.play();
     });
 
     $('#go_work').on('click',function(){
         canWork = true;
         visualizePlayingState(isWorking);
+        $('#rest_popup').fadeOut();
         $('#go_work_popup').fadeOut();
         $('#play').click();
     });

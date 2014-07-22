@@ -66,6 +66,25 @@ button:hover {
     padding: 24px;
 }
 
+#rest_popup {
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    margin:0;
+    background:rgba(0,0,0,.9);
+    color: rgb(225, 225, 225);
+}
+
+#rest_popup h2,
+#rest_popup p {
+    color: rgb(225, 225, 225);
+}
+
+#rest_popup p {
+    font-size: 54px;
+}
+
 button#go_rest,
 button#go_work {
     border: 2px solid black;
