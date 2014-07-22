@@ -20,10 +20,7 @@
         </h2>
     </div>
     <br class="clearfix" />
-    <button id="play">
-        <i class="fa fa-play fa-fw fa-lg"></i>
-        Play / Pause
-    </button>
+    <button id="play"><i class="fa fa-play fa-fw fa-lg"></i>Play</button>
     <!--
     <button id="reset" onclick='Example1.Timer.resetStopwatch();'>
         <i class="fa fa-trash-o fa-fw fa-lg"></i>
@@ -52,42 +49,38 @@
     </div>
 
     <script>
-        var timeTillRest = 40000;
-        var timeRest = 10000;
-        var playingState = false;
-        var isWorking = true;
-        $('#play').on('click',function(){
-            if (isWorking) {
-                Work.Timer.toggle();
-                TillRestCountdown.Timer.toggle();
-                if (! playingState) {
-                    $('#play').html('<i class="fa fa-pause fa-fw fa-lg"></i>Pause');
-                    playingState = true;
-                }
-                else {
-                    $('#play').html('<i class="fa fa-play fa-fw fa-lg"></i>Play');
-                    playingState = false;
-                }
-            }
-        });
+    var timeTillRest = 10000;
+    var timeRest = 10000;
+    var canWork = true;
+    var isWorking = false;
+    $('#play').on('click',function(){
+        if (canWork) {
+            Work.Timer.toggle();
+            TillRestCountdown.Timer.toggle();
+            visualizePlayingState(isWorking);
+        }
+    });
 
-        $('#reset').on('click',function(){
-            isWorking = true;
-            wipeLocalStorage();
-            location.reload();
-        });
+    $('#reset').on('click',function(){
+        canWork = true;
+        visualizePlayingState(isWorking);
+        wipeLocalStorage();
+        location.reload();
+    });
 
-        $('#go_rest').on('click',function(){
-           isWorking = false;
-           $('#go_rest_popup').fadeOut();
-           RestCountdown.Timer.play();
-        });
+    $('#go_rest').on('click',function(){
+        canWork = false;
+        visualizePlayingState(isWorking);
+        $('#go_rest_popup').fadeOut();
+        RestCountdown.Timer.play();
+    });
 
-        $('#go_work').on('click',function(){
-           isWorking = true;
-           $('#go_work_popup').fadeOut();
-           $('#play').click();
-        });
+    $('#go_work').on('click',function(){
+        canWork = true;
+        visualizePlayingState(isWorking);
+        $('#go_work_popup').fadeOut();
+        $('#play').click();
+    });
     </script>
   </body>
 </html>
