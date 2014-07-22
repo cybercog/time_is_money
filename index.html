@@ -7,6 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="jquery.timer.js"></script>
     <script type="text/javascript" src="timer.js"></script>
   </head>
@@ -23,7 +24,13 @@
         <i class="fa fa-play fa-fw fa-lg"></i>
         Play / Pause
     </button>
-    <button onclick='Example1.Timer.resetStopwatch();'>
+    <!--
+    <button id="reset" onclick='Example1.Timer.resetStopwatch();'>
+        <i class="fa fa-trash-o fa-fw fa-lg"></i>
+        Clear
+    </button>
+    -->
+    <button id="reset">
         <i class="fa fa-trash-o fa-fw fa-lg"></i>
         Clear
     </button>
@@ -39,6 +46,11 @@
                 $('#play').html('<i class="fa fa-play fa-fw fa-lg"></i>Play');
                 playingState = false;
             }
+        });
+
+        $('#reset').on('click',function(){
+            wipeLocalStorage();
+            location.reload();
         });
     </script>
   </body>

@@ -10,7 +10,6 @@
  * and outputs to the stopwatch element, $stopwatch.
  */
 var Example1 = new (function() {
-
     // Stopwatch element on the page
     var $stopwatch;
 
@@ -20,10 +19,21 @@ var Example1 = new (function() {
     // Current timer position in milliseconds
     var currentTime = 1000;
 
+    if (isLocalStorageAvailable()) {
+        // RESTORE TIME FROM LOCAL STORAGE
+        currentTime = JSON.parse(localStorage.getItem('timer'));
+    }
+    else {
+        alert('GET MODERN BROWSER, BRO!');
+    }
+
     // Start the timer
     $(function() {
         $stopwatch = $('#clock');
         Example1.Timer = $.timer(updateTimer, incrementTime, false);
+
+        var timeString = formatTime(currentTime);
+        $stopwatch.html(timeString);
     });
 
     // Output time and increment
@@ -31,12 +41,27 @@ var Example1 = new (function() {
         var timeString = formatTime(currentTime);
         $stopwatch.html(timeString);
         currentTime += incrementTime;
+
+        if (isLocalStorageAvailable()) {
+            try {
+                var timer = currentTime;
+                localStorage.setItem('timer', JSON.stringify(timer));
+            } catch (e) {
+                if (e == QUOTA_EXCEEDED_ERR) {
+                    alert('Локальное хранилище переполнено');
+                }
+            }
+        }
     }
 
     // Reset timer
     this.resetStopwatch = function() {
-        currentTime = 0;
+        currentTime = 1000;
         Example1.Timer.stop().once();
+        wipeLocalStorage();
+
+        var timeString = formatTime(currentTime);
+        $stopwatch.html(timeString);
     };
 });
 
@@ -47,6 +72,7 @@ var Example1 = new (function() {
  * user input for start time. Also, when the timer counts
  * down to zero, an alert is triggered.
  */
+/*
 var Example2 = new (function() {
 
     var $countdown;
@@ -101,6 +127,7 @@ var Example2 = new (function() {
     };
 
 });
+*/
 
 
 /**
@@ -112,6 +139,7 @@ var Example2 = new (function() {
  * If you click pause after an image changes, you should
  * see a value close to 2.5 seconds remaining.
  */
+/*
 var Example3 = new (function() {
 
     // An array of image elements
@@ -162,19 +190,21 @@ var Example3 = new (function() {
     };
 
 });
+*/
 
 
 /**
  * Example 4 is as simple as it gets.  Just a timer object and
  * a counter that is displayed as it updates.
  */
+/*
 var count = 0,
     timer = $.timer(function() {
         count++;
         $('#counter').html(count);
     });
 timer.set({ time : 1000, autostart : true });
-
+*/
 
 // Common functions
 function pad(number, length) {

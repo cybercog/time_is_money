@@ -36,11 +36,8 @@ input {
     color: rgb(162,78,4);
 }
 
-input[type="button"] {
-
-}
-
 button {
+    font-family: Rajdhani, sans-serif;
     background: none;
     border: 0;
     font-size: 30px;
