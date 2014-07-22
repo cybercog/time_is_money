@@ -55,34 +55,36 @@
         var timeTillRest = 40000;
         var timeRest = 10000;
         var playingState = false;
+        var isWorking = true;
         $('#play').on('click',function(){
-            Work.Timer.toggle();
-            TillRestCountdown.Timer.toggle();
-            if (! playingState) {
-                $('#play').html('<i class="fa fa-pause fa-fw fa-lg"></i>Pause');
-                playingState = true;
-            }
-            else {
-                $('#play').html('<i class="fa fa-play fa-fw fa-lg"></i>Play');
-                playingState = false;
+            if (isWorking) {
+                Work.Timer.toggle();
+                TillRestCountdown.Timer.toggle();
+                if (! playingState) {
+                    $('#play').html('<i class="fa fa-pause fa-fw fa-lg"></i>Pause');
+                    playingState = true;
+                }
+                else {
+                    $('#play').html('<i class="fa fa-play fa-fw fa-lg"></i>Play');
+                    playingState = false;
+                }
             }
         });
 
         $('#reset').on('click',function(){
+            isWorking = true;
             wipeLocalStorage();
             location.reload();
         });
 
-        $('#end_rest').on('click',function(){
-            TillRestCountdown.resetCountdown();
-        });
-
         $('#go_rest').on('click',function(){
+           isWorking = false;
            $('#go_rest_popup').fadeOut();
            RestCountdown.Timer.play();
         });
 
         $('#go_work').on('click',function(){
+           isWorking = true;
            $('#go_work_popup').fadeOut();
            $('#play').click();
         });
