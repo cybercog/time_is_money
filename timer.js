@@ -21,7 +21,10 @@ var Example1 = new (function() {
 
     if (isLocalStorageAvailable()) {
         // RESTORE TIME FROM LOCAL STORAGE
-        currentTime = JSON.parse(localStorage.getItem('timer'));
+        var storageTimer = JSON.parse(localStorage.getItem('timer'));
+        if (storageTimer > 0) {
+            currentTime = storageTimer;
+        }
     }
     else {
         alert('GET MODERN BROWSER, BRO!');
@@ -72,22 +75,22 @@ var Example1 = new (function() {
  * user input for start time. Also, when the timer counts
  * down to zero, an alert is triggered.
  */
-/*
+
 var Example2 = new (function() {
 
     var $countdown;
     var $form;
     var incrementTime = 70;
-    var currentTime = 300000; // 5 minutes (in milliseconds)
+    var currentTime = 600000; // 5 minutes (in milliseconds)
 
     $(function() {
 
         // Setup the timer
-        $countdown = $('#countdown');
+        $countdown = $('#rest');
         Example2.Timer = $.timer(updateTimer, incrementTime, true);
 
         // Setup form
-        $form = $('#example2form');
+        $form = $('#returnFromRest');
         $form.bind('submit', function() {
             Example2.resetCountdown();
             return false;
@@ -101,10 +104,10 @@ var Example2 = new (function() {
         var timeString = formatTime(currentTime);
         $countdown.html(timeString);
 
-        // If timer is complete, trigger alert
+        // If rest timer completed -
         if (currentTime == 0) {
             Example2.Timer.stop();
-            alert('Example 2: Countdown timer complete!');
+            console.log('GO REST!');
             Example2.resetCountdown();
             return;
         }
@@ -118,7 +121,7 @@ var Example2 = new (function() {
     this.resetCountdown = function() {
 
         // Get time from form
-        var newTime = parseInt($form.find('input[type=text]').val()) * 1000;
+        var newTime = 600000;
         if (newTime > 0) {currentTime = newTime;}
 
         // Stop and reset timer
@@ -127,7 +130,7 @@ var Example2 = new (function() {
     };
 
 });
-*/
+
 
 
 /**
