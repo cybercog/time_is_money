@@ -15,10 +15,10 @@ var Work = new (function() {
     var autostart = false;
 
     // Timer speed in milliseconds
-    var incrementTime = 1000;
+    var incrementTime = 500;
 
     // Current timer position in milliseconds
-    var currentTime = 1000;
+    var currentTime = 0;
 
     if (isLocalStorageAvailable()) {
         // RESTORE TIME FROM LOCAL STORAGE
@@ -60,7 +60,7 @@ var Work = new (function() {
 
     // Reset timer
     this.resetStopwatch = function() {
-        currentTime = 1000;
+        currentTime = 0;
         Work.Timer.stop().once();
         wipeLocalStorage();
 
@@ -80,23 +80,24 @@ var Work = new (function() {
 var TillRestCountdown = new (function() {
 
     var $countdown;
-    var incrementTime = 70;
-    var currentTime = 40000; // 5 minutes (in milliseconds)
+    var incrementTime = 500;
+    var currentTime;
     var autostart = false;
 
     $(function() {
         // Setup the timer
+        currentTime = timeTillRest;
         $countdown = $('#till_rest');
         TillRestCountdown.Timer = $.timer(updateTimer, incrementTime, autostart);
 
         var timeString = formatTime(currentTime);
-        $countdown.html(timeString);
+        console.log('Till rest timer: '+timeString);
+        // $countdown.html(timeString);
     });
 
     function updateTimer() {
-        // Output timer position
-        var timeString = formatTime(currentTime);
-        $countdown.html(timeString);
+        // var timeString = formatTime(currentTime);
+        // $countdown.html(timeString);
 
         // If till rest timer completed - show popup with rest
         if (currentTime == 0) {
@@ -113,9 +114,9 @@ var TillRestCountdown = new (function() {
     }
 
     this.resetCountdown = function() {
-        currentTime = 2400;
         // Stop and reset timer
         TillRestCountdown.Timer.stop().once();
+        currentTime = timeTillRest;
     };
 });
 
@@ -123,25 +124,25 @@ var TillRestCountdown = new (function() {
 var RestCountdown = new (function() {
 
     var $countdown;
-    var incrementTime = 70;
-    var currentTime = 10000; // 5 minutes (in milliseconds)
+    var incrementTime = 500;
+    var currentTime;
     var autostart = false;
 
     $(function() {
         // Setup the timer
+        currentTime = timeRest;
         $countdown = $('#rest');
         RestCountdown.Timer = $.timer(updateTimer, incrementTime, autostart);
 
         var timeString = formatTime(currentTime);
-        $countdown.html(timeString);
+        console.log('Rest timer: '+timeString);
+        // $countdown.html(timeString);
     });
 
     function updateTimer() {
-        // Output timer position
-        var timeString = formatTime(currentTime);
-        $countdown.html(timeString);
+        // var timeString = formatTime(currentTime);
+        // $countdown.html(timeString);
 
-        // If rest timer completed -
         if (currentTime == 0) {
             RestCountdown.Timer.stop();
             $('#go_work_popup').fadeIn();
@@ -155,88 +156,11 @@ var RestCountdown = new (function() {
     }
 
     this.resetCountdown = function() {
-        currentTime = 10000;
         // Stop and reset timer
         RestCountdown.Timer.stop().once();
+        currentTime = timeRest;
     };
 });
-
-
-/**
- * The purpose of this example is to demonstrate preserving
- * the time remaining when pausing a timer.  When you pause
- * the slide show, the time remaining until the next slide
- * is preserved.
- *
- * If you click pause after an image changes, you should
- * see a value close to 2.5 seconds remaining.
- */
-/*
-var Example3 = new (function() {
-
-    // An array of image elements
-    var $galleryImages;
-
-    // Usually hidden element to display time when paused
-    var $timeRemaining;
-
-    // Which image is being shown
-    var imageId = 0;
-
-    // Slide settings
-    var slideTime = 2500;
-    var transitionSpeed = 500;
-
-    // Setup timer
-    $(function() {
-        $galleryImages = $('.galleryImages img');
-        $timeRemaining = $('#timeRemaining');
-        Example3.Timer = $.timer(updateTimer, slideTime, true).once();
-    });
-
-    // Change slides
-    function updateTimer() {
-        $galleryImages.eq(imageId).stop(true,true).animate({opacity:0}, transitionSpeed);
-        imageId++;
-        if (imageId >= $galleryImages.length) {
-            imageId = 0;
-        }
-        $galleryImages.eq(imageId).stop(true,false).animate({opacity:1}, transitionSpeed);
-    }
-
-    // Pause timer and output remaining time
-    this.toggleGallery = function() {
-        if (this.Timer.active) {
-            this.Timer.pause();
-
-            // $.timer.remiaining only gets updated after pausing
-            var seconds = this.Timer.remaining / 1000;
-            $timeRemaining.html(seconds + " seconds remaining.");
-        }
-        else {
-            this.Timer.play();
-
-            // Clear output
-            $timeRemaining.html("<br/>");
-        }
-    };
-
-});
-*/
-
-
-/**
- * Example 4 is as simple as it gets.  Just a timer object and
- * a counter that is displayed as it updates.
- */
-/*
-var count = 0,
-    timer = $.timer(function() {
-        count++;
-        $('#counter').html(count);
-    });
-timer.set({ time : 1000, autostart : true });
-*/
 
 // Common functions
 function pad(number, length) {

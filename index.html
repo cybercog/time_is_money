@@ -35,15 +35,6 @@
         Clear
     </button>
 
-    <h3>
-        Till rest:
-        <span id="till_rest">00:00</span>
-    </h3>
-    <h3>
-        Rest:
-        <span id="rest">00:00</span>
-    </h3>
-
     <div id="go_rest_popup" class="popup">
         <div class="wrapper">
             <h3>Everybody need a rest.</h3>
@@ -61,6 +52,8 @@
     </div>
 
     <script>
+        var timeTillRest = 40000;
+        var timeRest = 10000;
         var playingState = false;
         $('#play').on('click',function(){
             Work.Timer.toggle();
