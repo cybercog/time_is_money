@@ -6,87 +6,51 @@
     <link href='http://fonts.googleapis.com/css?family=Rajdhani:400,700' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="top">
+        <button id="reset">
+          <i class="fa fa-trash-o fa-fw fa-lg"></i>
+          Clear
+        </button>
+      </div>
+
+      <h1>Time is Money</h1>
+
+      <h2 id="timer">
+        <i class="fa fa-clock-o fa-fw fa-lg" id="run"></i>
+        <span id="clock">00:00</span>
+      </h2>
+    </div>
+
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="jquery.timer.js"></script>
     <script type="text/javascript" src="timer.js"></script>
-  </head>
-  <body>
-    <h1>Time is Money</h1>
-    <div id="timer">
-        <h2>
-            <i class="fa fa-clock-o fa-fw fa-lg"></i>
-            <span id="clock">00:00</span>
-        </h2>
-    </div>
-    <br class="clearfix" />
-    <button id="play"><i class="fa fa-play fa-fw fa-lg"></i>Play</button>
-    <!--
-    <button id="reset" onclick='Example1.Timer.resetStopwatch();'>
-        <i class="fa fa-trash-o fa-fw fa-lg"></i>
-        Clear
-    </button>
-    -->
-    <button id="reset">
-        <i class="fa fa-trash-o fa-fw fa-lg"></i>
-        Clear
-    </button>
-
-    <div id="go_rest_popup" class="popup">
-        <div class="wrapper">
-            <h3>Everybody need a rest.</h3>
-            <p>To keep your eyes health - please stay away from monitors & TVs</p>
-            <button id="go_rest">Go rest!</button>
-        </div>
-    </div>
-
-    <div id="rest_popup" class="popup">
-        <h2>Calm down</h2>
-        <p>...and rest...</p>
-    </div>
-
-    <div id="go_work_popup" class="popup">
-        <div class="wrapper">
-            <h3>Everybody need to work.</h3>
-            <p>To have a lot of money & practice new skills - keep working hard!</p>
-            <button id="go_work">Go back to work!</button>
-        </div>
-    </div>
-
     <script>
-    var timeTillRest = 2400000;
-    var timeRest = 600000;
-    var canWork = true;
-    var isWorking = false;
-    $('#play').on('click',function(){
-        if (canWork) {
-            Work.Timer.toggle();
-            TillRestCountdown.Timer.toggle();
-            visualizePlayingState(isWorking);
-        }
+    var isRunning = false;
+    var startTimer = function() {
+        $('#run').addClass('fa-spin active');
+        isRunning = true;
+    };
+    var stopTimer = function() {
+        $('#run').removeClass('fa-spin active');
+        isRunning = false;
+    };
+
+    $('#run').on('click',function(){
+        Work.Timer.toggle();
+        if (! isRunning)
+            startTimer();
+        else
+            stopTimer();
     });
 
     $('#reset').on('click',function(){
-        canWork = true;
-        visualizePlayingState(isWorking);
+        stopTimer();
         wipeLocalStorage();
         location.reload();
-    });
-
-    $('#go_rest').on('click',function(){
-        canWork = false;
-        visualizePlayingState(isWorking);
-        $('#go_rest_popup').fadeOut();
-        $('#rest_popup').fadeIn();
-        RestCountdown.Timer.play();
-    });
-
-    $('#go_work').on('click',function(){
-        canWork = true;
-        visualizePlayingState(isWorking);
-        $('#rest_popup').fadeOut();
-        $('#go_work_popup').fadeOut();
-        $('#play').click();
     });
     </script>
   </body>
